@@ -108,28 +108,28 @@
     <div class="slide active" style="background-image: url('bg1.jpg');">
       <h1>Selamat Pagi, Alya 🌞</h1>
       <p>Hari baru, semangat baru! Yuk mulai dengan senyuman 😊</p>
-      <button class="btn-cinta" onclick="playSoundAndEmoji(event); nextSlide()">Pencet di sini sayang 💕</button>
+      <button class="btn-cinta" onclick="nextSlideWithEffect(event)">Pencet di sini sayang 💕</button>
     </div>
 
     <!-- Slide 2 -->
     <div class="slide" style="background-image: url('bg2.jpg');">
       <h1>Semangat Kerja Ya, Sayang 💼</h1>
       <p>Aku tahu kamu hebat dan selalu bisa diandalkan 💪</p>
-      <button class="btn-cinta" onclick="playSoundAndEmoji(event); nextSlide()">Sebelah sini sayang 😘</button>
+      <button class="btn-cinta" onclick="nextSlideWithEffect(event)">Sebelah sini sayang 😘</button>
     </div>
 
     <!-- Slide 3 -->
     <div class="slide" style="background-image: url('bg3.jpg');">
       <h1>Kamu Tahu Nggak?</h1>
       <p>Aku bersyukur banget punya kamu. Kamu cahaya di hari-hariku ✨</p>
-      <button class="btn-cinta" onclick="playSoundAndEmoji(event); nextSlide()">Lanjut sayang 💖</button>
+      <button class="btn-cinta" onclick="nextSlideWithEffect(event)">Lanjut sayang 💖</button>
     </div>
 
     <!-- Slide 4 -->
     <div class="slide" style="background-image: url('bg4.jpg');">
       <h1 id="love">I LOVE YOU 💖</h1>
       <p>Dengan sepenuh hati... dari Mahendra yang selalu sayang kamu 😘</p>
-      <button class="btn-cinta" onclick="playSoundAndEmoji(event)">Sayang, ini baca ya. Pencet yaa~ 💌</button>
+      <button class="btn-cinta" onclick="nextSlideWithEffect(event)">Sayang, ini baca ya. Pencet yaa~ 💌</button>
     </div>
   </div>
 
@@ -147,22 +147,7 @@
     const slides = document.querySelectorAll('.slide');
     let current = 0;
 
-    function nextSlide() {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }
-
-    // Mulai musik dari detik ke-10 saat layar diklik
-    window.addEventListener("click", () => {
-      const bgMusic = document.getElementById("bgMusic");
-      if (bgMusic.paused) {
-        bgMusic.currentTime = 10; // start dari detik ke-10
-        bgMusic.play();
-      }
-    });
-
-    function playSoundAndEmoji(e) {
+    function nextSlideWithEffect(e) {
       const sound = document.getElementById('clickSound');
       sound.currentTime = 0;
       sound.play();
@@ -177,7 +162,21 @@
 
       document.body.appendChild(kiss);
       setTimeout(() => kiss.remove(), 1000);
+
+      // Ganti slide
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
     }
+
+    // Mulai musik dari detik ke-10 saat layar diklik
+    window.addEventListener("click", () => {
+      const bgMusic = document.getElementById("bgMusic");
+      if (bgMusic.paused) {
+        bgMusic.currentTime = 10;
+        bgMusic.play();
+      }
+    });
   </script>
 </body>
 </html>
