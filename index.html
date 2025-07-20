@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Untuk Alya Tercinta 💖</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html {
       width: 100%;
       height: 100%;
@@ -31,10 +27,11 @@
       color: white;
       font-size: 2em;
       opacity: 0;
-      transition: opacity 2s ease-in-out;
+      transition: opacity 1s ease-in-out;
     }
     .active {
       opacity: 1;
+      z-index: 1;
     }
     .slide h1 {
       font-size: 3em;
@@ -72,8 +69,6 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
-
-    /* Kiss emoji animation */
     .kiss-emoji {
       position: absolute;
       font-size: 2.5em;
@@ -91,6 +86,17 @@
       }
     }
 
+    /* Animasi teks */
+    .slide h1, .slide p {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+    }
+    .slide.active h1, .slide.active p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     audio {
       display: none;
     }
@@ -102,20 +108,21 @@
     <div class="slide active" style="background-image: url('bg1.jpg');">
       <h1>Selamat Pagi, Alya 🌞</h1>
       <p>Hari baru, semangat baru! Yuk mulai dengan senyuman 😊</p>
-      <button class="btn-cinta" onclick="playSoundAndEmoji(event)">Pencet di sini sayang 💕</button>
+      <button class="btn-cinta" onclick="playSoundAndEmoji(event); nextSlide()">Pencet di sini sayang 💕</button>
     </div>
 
     <!-- Slide 2 -->
     <div class="slide" style="background-image: url('bg2.jpg');">
       <h1>Semangat Kerja Ya, Sayang 💼</h1>
       <p>Aku tahu kamu hebat dan selalu bisa diandalkan 💪</p>
-      <button class="btn-cinta" onclick="playSoundAndEmoji(event)">Sebelah sini sayang 😘</button>
+      <button class="btn-cinta" onclick="playSoundAndEmoji(event); nextSlide()">Sebelah sini sayang 😘</button>
     </div>
 
     <!-- Slide 3 -->
     <div class="slide" style="background-image: url('bg3.jpg');">
       <h1>Kamu Tahu Nggak?</h1>
       <p>Aku bersyukur banget punya kamu. Kamu cahaya di hari-hariku ✨</p>
+      <button class="btn-cinta" onclick="playSoundAndEmoji(event); nextSlide()">Lanjut sayang 💖</button>
     </div>
 
     <!-- Slide 4 -->
@@ -126,12 +133,12 @@
     </div>
   </div>
 
-  <!-- Musik romantis -->
-  <audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+  <!-- Musik romantis offline -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="lagu-romantis.mp3" type="audio/mp3">
   </audio>
 
-  <!-- Suara lucu tiap tombol -->
+  <!-- Suara klik lucu -->
   <audio id="clickSound">
     <source src="https://www.myinstants.com/media/sounds/pop-up-off.mp3" type="audio/mpeg">
   </audio>
@@ -140,11 +147,20 @@
     const slides = document.querySelectorAll('.slide');
     let current = 0;
 
-    setInterval(() => {
+    function nextSlide() {
       slides[current].classList.remove('active');
       current = (current + 1) % slides.length;
       slides[current].classList.add('active');
-    }, 5000);
+    }
+
+    // Mulai musik dari detik ke-10 saat layar diklik
+    window.addEventListener("click", () => {
+      const bgMusic = document.getElementById("bgMusic");
+      if (bgMusic.paused) {
+        bgMusic.currentTime = 10; // start dari detik ke-10
+        bgMusic.play();
+      }
+    });
 
     function playSoundAndEmoji(e) {
       const sound = document.getElementById('clickSound');
@@ -160,10 +176,7 @@
       kiss.style.top = rect.top + window.scrollY + 'px';
 
       document.body.appendChild(kiss);
-
-      setTimeout(() => {
-        kiss.remove();
-      }, 1000);
+      setTimeout(() => kiss.remove(), 1000);
     }
   </script>
 </body>
