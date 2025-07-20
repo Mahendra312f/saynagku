@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Untuk Alya Tercinta 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .slide-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding-top: 20%;
+      color: white;
+      font-size: 2em;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+    .active {
+      opacity: 1;
+    }
+    .slide h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .slide p {
+      font-size: 1.2em;
+      text-shadow: 1px 1px 3px #000;
+    }
+    #love {
+      font-size: 4em;
+      font-family: 'Cursive', sans-serif;
+      animation: heartbeat 1.5s infinite;
+    }
+    .btn-cinta {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 1em;
+      background-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      border: 2px solid white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      text-shadow: 1px 1px 2px #000;
+    }
+    .btn-cinta:hover {
+      background-color: white;
+      color: #ee9ca7;
+      font-weight: bold;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Kiss emoji animation */
+    .kiss-emoji {
+      position: absolute;
+      font-size: 2.5em;
+      animation: flykiss 1s ease-in-out forwards;
+      pointer-events: none;
+    }
+    @keyframes flykiss {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.5);
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-container">
+    <!-- Slide 1 -->
+    <div class="slide active" style="background-image: url('bg1.jpg');">
+      <h1>Selamat Pagi, Alya 🌞</h1>
+      <p>Hari baru, semangat baru! Yuk mulai dengan senyuman 😊</p>
+      <button class="btn-cinta" onclick="playSoundAndEmoji(event)">Pencet di sini sayang 💕</button>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" style="background-image: url('bg2.jpg');">
+      <h1>Semangat Kerja Ya, Sayang 💼</h1>
+      <p>Aku tahu kamu hebat dan selalu bisa diandalkan 💪</p>
+      <button class="btn-cinta" onclick="playSoundAndEmoji(event)">Sebelah sini sayang 😘</button>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" style="background-image: url('bg3.jpg');">
+      <h1>Kamu Tahu Nggak?</h1>
+      <p>Aku bersyukur banget punya kamu. Kamu cahaya di hari-hariku ✨</p>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide" style="background-image: url('bg4.jpg');">
+      <h1 id="love">I LOVE YOU 💖</h1>
+      <p>Dengan sepenuh hati... dari Mahendra yang selalu sayang kamu 😘</p>
+      <button class="btn-cinta" onclick="playSoundAndEmoji(event)">Sayang, ini baca ya. Pencet yaa~ 💌</button>
+    </div>
+  </div>
+
+  <!-- Musik romantis -->
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Suara lucu tiap tombol -->
+  <audio id="clickSound">
+    <source src="https://www.myinstants.com/media/sounds/pop-up-off.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 5000);
+
+    function playSoundAndEmoji(e) {
+      const sound = document.getElementById('clickSound');
+      sound.currentTime = 0;
+      sound.play();
+
+      const kiss = document.createElement('div');
+      kiss.classList.add('kiss-emoji');
+      kiss.innerText = '💋';
+
+      const rect = e.target.getBoundingClientRect();
+      kiss.style.left = rect.left + rect.width / 2 + 'px';
+      kiss.style.top = rect.top + window.scrollY + 'px';
+
+      document.body.appendChild(kiss);
+
+      setTimeout(() => {
+        kiss.remove();
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
